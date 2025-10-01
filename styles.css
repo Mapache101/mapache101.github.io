@@ -1,0 +1,44 @@
+/* styles.css */
+nav {
+    display: flex;
+    justify-content: center; /* This centers the items along the main axis */
+    background-color: #555;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none; /* Removes the underline */
+    padding: 10px 20px; /* Adds space around the links */
+}
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+main {
+    max-width: 800px;
+    margin: 20px auto; /* Centers the main content block */
+    padding: 20px;
+}
+
+section {
+    background-color: white;
+    margin-bottom: 20px; /* Adds space between sections */
+    padding: 20px;
+}
+/* Media Query for mobile devices */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Stacks the flex items vertically */
+        align-items: center;    /* Centers the items on the cross-axis */
+    }
+}
+
