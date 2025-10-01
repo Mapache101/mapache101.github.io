@@ -1,51 +1,89 @@
-sectio.nav
-  h1 FRONTEND TRENDS
-  h3.span.loader
-    span.m D
-    span.m A
-    span.m N
-    span.m I
-    span.m E
-    span.m L
-    span.m &nbsp;
-    span.m O
-    span.m L
-    span.m G
-    span.m U
-    span.m I
-    span.m N
-    span.m &nbsp;
-    span.m I
-    span.m C
-    span.m T
-    span.m &nbsp;
-    span.m 2
-    span.m 0
-    span.m 2
-    span.m 5
-    span.m 
-    span.m 
-  .nav-container
-    a.nav-tab(href="#tab-pwa") HOME
-    a.nav-tab(href="#tab-graphql") ABOUT
-    a.nav-tab(href="#tab-next") NEXT
-    a.nav-tab(href="#tab-typescript") TYPESCRIPT
-    a.nav-tab(href="#tab-deno") DEMO
-    span.nav-tab-slider
-main.main
-  section#tab-pwa.slider
-    h1 PWA
-    h2 the best of both worlds...
-  section#tab-graphql.slider
-    h1 GraphQL
-    h2 a query language for APIs
-  section#tab-next.slider
-    h1 NEXT
-    h2 framework for Production
-  section#tab-typescript.slider
-    h1 TYPESCRIPT
-    h2 giving you better tooling at any scale
-  section#tab-deno.slider
-    h1 DENO
-    h2 a modern runtime
-canvas.background
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Trends Showcase</title>
+
+    <!-- Google Fonts for "ROBOTO" and "Josefin Sans" -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Link to your local CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- START OF ORIGINAL CODEPEN HTML CONTENT (Converted to standard HTML) -->
+    <section class="nav">
+        <h1>FRONTEND TRENDS</h1>
+        <h3 class="span loader">
+            <span class="m">D</span>
+            <span class="m">A</span>
+            <span class="m">N</span>
+            <span class="m">I</span>
+            <span class="m">E</span>
+            <span class="m">L</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">O</span>
+            <span class="m">L</span>
+            <span class="m">G</span>
+            <span class="m">U</span>
+            <span class="m">I</span>
+            <span class="m">N</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">I</span>
+            <span class="m">C</span>
+            <span class="m">T</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">2</span>
+            <span class="m">0</span>
+            <span class="m">2</span>
+            <span class="m">5</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">&nbsp;</span>
+        </h3>
+        <div class="nav-container">
+            <a class="nav-tab" href="#tab-pwa">HOME</a>
+            <a class="nav-tab" href="#tab-graphql">ABOUT</a>
+            <a class="nav-tab" href="#tab-next">NEXT</a>
+            <a class="nav-tab" href="#tab-typescript">TYPESCRIPT</a>
+            <a class="nav-tab" href="#tab-deno">DEMO</a>
+            <span class="nav-tab-slider"></span>
+        </div>
+    </section>
+    <main class="main">
+        <section id="tab-pwa" class="slider">
+            <h1>PWA</h1>
+            <h2>the best of both worlds...</h2>
+        </section>
+        <section id="tab-graphql" class="slider">
+            <h1>GraphQL</h1>
+            <h2>a query language for APIs</h2>
+        </section>
+        <section id="tab-next" class="slider">
+            <h1>NEXT</h1>
+            <h2>framework for Production</h2>
+        </section>
+        <section id="tab-typescript" class="slider">
+            <h1>TYPESCRIPT</h1>
+            <h2>giving you better tooling at any scale</h2>
+        </section>
+        <section id="tab-deno" class="slider">
+            <h1>DENO</h1>
+            <h2>a modern runtime</h2>
+        </section>
+    </main>
+    <canvas class="background"></canvas>
+    <!-- END OF ORIGINAL CODEPEN HTML CONTENT -->
+
+    <!-- DEPENDENCY: jQuery is required for the scrolling and navigation logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- DEPENDENCY: Particles.js library for the canvas background -->
+    <script src="https://cdn.jsdelivr.net/npm/particles-bg@2.5.5/dist/particles.min.js"></script>
+
+    <!-- Link to your local JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
