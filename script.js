@@ -1,4 +1,4 @@
-// code by Kurt Grüng
+
 
 // FIX 1: Import THREE and the required post-processing modules
 import * as THREE from 'three';
