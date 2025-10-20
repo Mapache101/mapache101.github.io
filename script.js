@@ -1,5 +1,11 @@
 // code by Kurt Grüng
 
+// FIX 1: Import THREE and the required post-processing modules
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
 const MathUtils = {
   normalize: (value, min, max) => (value - min) / (max - min),
   interpolate: (normValue, min, max) => min + (max - min) * normValue,
@@ -28,13 +34,17 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000);
 
 const camera = new THREE.PerspectiveCamera(45, w / h, 0.001, 200);
-let cameraRotationProxyX = Math.PI;
+
+// FIX 2: Fix the camera rotation.
+// Setting rotation.y to Math.PI made the camera face backwards
+// relative to its parent group. Set it to 0 to face forward.
+let cameraRotationProxyX = 0; // Was Math.PI
 let cameraRotationProxyY = 0;
 camera.rotation.y = cameraRotationProxyX;
 camera.rotation.z = cameraRotationProxyY;
 
 const cameraGroup = new THREE.Group();
-cameraGroup.position.z = 400;
+cameraGroup.position.z = 400; // Note: This position is overwritten on the first frame
 cameraGroup.add(camera);
 scene.add(cameraGroup);
 
@@ -65,23 +75,30 @@ const geometry = new THREE.TubeGeometry(
   ringSegments,
   true
 );
+
+// FIX 3 (Improvement): 'linewidth' is unreliable and often ignored.
+// I've removed it and increased opacity so the lines are visible.
 const wireframe = new THREE.LineSegments(
   new THREE.EdgesGeometry(geometry),
-  new THREE.LineBasicMaterial({ linewidth: 0.1, opacity: 0.1 })
+  new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.15, transparent: true })
 );
 scene.add(wireframe);
 
-const ringMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
-
-const ringMaterial1 = new THREE.LineBasicMaterial({
-  color: 0xffffff,
-  transparent: true,
-  opacity: 0.8,
-  depthWrite: false
-});
+// const ringMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+// const ringMaterial1 = new THREE.LineBasicMaterial({
+//   color: 0xffffff,
+//   transparent: true,
+//   opacity: 0.8,
+//   depthWrite: false
+// });
 
 const frenetFrames = path.computeFrenetFrames(ringCount, true);
 
+// FIX 4 (Improvement): This loop is redundant and very bad for performance.
+// You are adding 601 individual LineLoop objects to the scene.
+// The `TubeGeometry` and `EdgesGeometry` (the `wireframe` above)
+// already create this exact effect, but much more efficiently.
+/*
 for (let i = 0; i <= ringCount; i++) {
   const t = i / ringCount;
   const pos = path.getPointAt(t);
@@ -108,6 +125,7 @@ for (let i = 0; i <= ringCount; i++) {
   const ringMesh = new THREE.LineLoop(ringGeometry, ringMaterial);
   scene.add(ringMesh);
 }
+*/
 
 const light = new THREE.PointLight(0xffffff, 0.1, 4, 0);
 light.castShadow = true;
@@ -128,7 +146,7 @@ composer.addPass(renderScene);
 composer.addPass(bloomPass);
 
 let cameraTargetPercentage = 0;
-let currentCameraPercentage = 0;
+// let currentCameraPercentage = 0; // This variable was unused
 
 function updateCameraPercentage(percentage) {
   const p1 = path.getPointAt(percentage % 1);
@@ -139,17 +157,20 @@ function updateCameraPercentage(percentage) {
   light.position.set(p2.x, p2.y, p2.z);
 }
 
-const tubePerc = { percent: 0 };
+// const tubePerc = { percent: 0 }; // This variable was unused
 
 function render() {
-  cameraTargetPercentage = (cameraTargetPercentage + 0.001) % 1;
+  // We increment this *before* updating the camera
+  cameraTargetPercentage = (cameraTargetPercentage + 0.0001) % 1; // Slowed down for a smoother ride
 
   camera.rotation.y += (cameraRotationProxyX - camera.rotation.y) / 15;
   camera.rotation.x += (cameraRotationProxyY - camera.rotation.x) / 15;
+  
   updateCameraPercentage(cameraTargetPercentage);
+  
   composer.render();
   requestAnimationFrame(render);
-  console.log(cameraTargetPercentage);
+  // console.log(cameraTargetPercentage); // Removed for performance
 }
 
 requestAnimationFrame(render);
